@@ -10,8 +10,14 @@ const { dbConnection } = require('./database/config');
 const app = express();
 
 
+// =============Middlewares==========
 // Configurar CORS
 app.use(cors());
+
+// Lectura y parseo del body
+app.use(express.json());
+
+// ==================================
 
 
 // Base de datos
@@ -19,12 +25,8 @@ dbConnection();
 
 
 // RUTAS
-app.get('/', (req, res) => {
-    res.json({
-        ok: true,
-        msg: 'Hola Mundo'
-    });
-});
+app.use('/api/usuarios', require('./routes/usuarios.routes'));
+app.use('/api/login', require('./routes/auth.routes'));
 
 
 

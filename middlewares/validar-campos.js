@@ -5,7 +5,7 @@ const { validationResult } = require('express-validator');
 
 const validarCampos = (req, res = response, next) => {
 
-    const errores = validationResult(req);
+    const errores = validationResult(req); // Recojo las validaciones que me llegan por el req
 
     if (!errores.isEmpty()) {
         res.status(400).json({

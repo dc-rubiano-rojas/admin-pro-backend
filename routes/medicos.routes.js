@@ -27,7 +27,11 @@ router.post('/', [
     createMedico);
 
 
-router.put('/:id', [],
+router.put('/:id', [
+        validarJWT,
+        check('nombre', 'El nombre del Medico es necesario').not().isEmpty(),
+        validarCampos // Me valida los checks
+    ],
     actualizarMedico);
 
 

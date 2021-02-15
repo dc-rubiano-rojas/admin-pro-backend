@@ -100,7 +100,14 @@ const actualizarUsuario = async(req, res = response) => {
             }
         }
 
-        campos.email = email;
+        if (!usuarioDB.google) {
+            campos.email = email;
+        } else if (usuarioDB.email !== email) {
+            return res.status(400).json({
+                ok: false,
+                msg: 'Usuarios de Google no puede cambiar su correo!'
+            });
+        }
 
         // Esto lo estoy haciendo con la desestruturación { password, google, ...campos } = req.body;
         // delete campos.password;
@@ -115,7 +122,7 @@ const actualizarUsuario = async(req, res = response) => {
 
     } catch (error) {
         console.log(error);
-        res.status(500).json({
+        return res.status(500).json({
             ok: false,
             msg: 'Error inesperado'
         });
